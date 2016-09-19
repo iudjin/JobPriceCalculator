@@ -20,9 +20,9 @@ if (typeof NuPack.Pricing == 'undefined')
   {
     parseInput(input);
 
-    var flatMarkup = calculateFlatMarkup(basePrice);
-    var jobMarkup = calculateJobMarkup(basePrice + flatMarkup);
-    var categoryMarkup = calculateCategoryMarkup(basePrice + flatMarkup);
+    var flatMarkup = this.calculateFlatMarkup(basePrice);
+    var jobMarkup = this.calculateJobMarkup(basePrice + flatMarkup, numberOfPeople);
+    var categoryMarkup = this.calculateCategoryMarkup(basePrice + flatMarkup, category);
 
     return Math.round((basePrice + flatMarkup + jobMarkup + categoryMarkup) * 100) / 100;
   };
@@ -35,17 +35,17 @@ if (typeof NuPack.Pricing == 'undefined')
     category = data[2].trim();
   };
 
-  function calculateFlatMarkup(price)
+  this.JobPriceCalculator.prototype.calculateFlatMarkup = function (price)
   {
     return price * 0.05;
   };
 
-  function calculateJobMarkup(price)
+  this.JobPriceCalculator.prototype.calculateJobMarkup = function (price, numberOfPeople)
   {
     return price * numberOfPeople * 0.012;
   };
 
-  function calculateCategoryMarkup(price)
+  this.JobPriceCalculator.prototype.calculateCategoryMarkup = function (price, category)
   {
     var categoryMarkup = 0;
     for (var item in categories) {

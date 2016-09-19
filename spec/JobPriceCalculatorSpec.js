@@ -5,6 +5,18 @@ describe("JobPriceCalculator", function() {
     calculator = new NuPack.Pricing.JobPriceCalculator();
   });
 
+  it("should calculate flat markup", function() {
+    expect(calculator.calculateFlatMarkup(100)).toEqual(5);
+  });
+
+  it("should calculate job markup", function() {
+    expect(calculator.calculateJobMarkup(100, 2)).toEqual(2.4);
+  });
+
+  it("should calculate category markup", function() {
+    expect(calculator.calculateCategoryMarkup(100, 'food')).toEqual(13);
+  });
+
   it("should return 1591.58 for 1,299.99, 3 people, food", function() {
     expect(calculator.getEstimatedPrice('1299.99, 3 people, food')).toEqual(1591.58);
   });
