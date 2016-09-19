@@ -5,6 +5,9 @@ if (typeof NuPack.Pricing == 'undefined')
 
 (function(){
   var categories = {};
+  var basePrice = 0;
+  var numberOfPeople = 0;
+  var category = 'other';
 
   this.JobPriceCalculator = function()
   {
@@ -15,19 +18,42 @@ if (typeof NuPack.Pricing == 'undefined')
 
   this.JobPriceCalculator.prototype.getEstimatedPrice = function(input)
   {
+    parseInput(input);
+
+    var flatMarkup = calculateFlatMarkup(basePrice);
+    var jobMarkup = calculateJobMarkup(basePrice + flatMarkup);
+    var categoryMarkup = calculateCategoryMarkup(basePrice + flatMarkup);
+
+    return Math.round((basePrice + flatMarkup + jobMarkup + categoryMarkup) * 100) / 100;
+  };
+
+  function parseInput(input)
+  {
     var data = input.split(',');
-    var basePrice = Number(data[0].trim());
-    var numberOfPeople = Number(data[1].trim().split(' ')[0]);
-    var category = data[2].trim();
+    basePrice = Number(data[0].trim());
+    numberOfPeople = Number(data[1].trim().split(' ')[0]);
+    category = data[2].trim();
+  };
 
-    var flatMarkup = basePrice * 0.05;
-    var jobMarkup = (basePrice + flatMarkup) * numberOfPeople * 0.012;
+  function calculateFlatMarkup(price)
+  {
+    return price * 0.05;
+  };
 
+  function calculateJobMarkup(price)
+  {
+    return price * numberOfPeople * 0.012;
+  };
+
+  function calculateCategoryMarkup(price)
+  {
     var categoryMarkup = 0;
     for (var item in categories) {
       if (category === item)
-        categoryMarkup = (basePrice + flatMarkup) * categories[item];
-    }
-    return Math.round((basePrice + flatMarkup + jobMarkup + categoryMarkup) * 100) / 100;
+        categoryMarkup = price * categories[item];
+    };
+
+    return categoryMarkup;
   };
+
 }).call(NuPack.Pricing);
