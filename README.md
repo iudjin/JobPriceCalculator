@@ -4,7 +4,7 @@ NuPack.Pricing
 Implementation of pricing estimation for NuPack
 ----------------------------------------------
 
-	folder /src contains the code for calculating estimated price for NuPack corporation
+	Folder /src contains the code for calculating estimated price for NuPack corporation	
 
 Usage
 ------
@@ -21,4 +21,5 @@ Usage
 Running specification tests
 -------------
 	
-	Open SpecRunner.html file located in root folder in any browser which will execute specifications in Jasmine format located under /spec folder
+	Open SpecRunner.html file located in root folder in any browser which will execute specifications 
+		in Jasmine format located under /spec folder
