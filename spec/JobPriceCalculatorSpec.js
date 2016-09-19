@@ -2,7 +2,7 @@ describe("JobPriceCalculator", function() {
   var calculator;
 
   beforeEach(function() {
-    calculator = new JobPriceCalculator();
+    calculator = new NuPack.Pricing.JobPriceCalculator();
   });
 
   it("should return 1591.58 for 1,299.99, 3 people, food", function() {
