@@ -17,6 +17,10 @@ describe("JobPriceCalculator", function() {
     expect(calculator.calculateCategoryMarkup(100, 'food')).toEqual(13);
   });
 
+  it("should calculate zero category markup", function() {
+    expect(calculator.calculateCategoryMarkup(100, 'furniture')).toEqual(0);
+  });
+
   it("should return 1591.58 for 1,299.99, 3 people, food", function() {
     expect(calculator.getEstimatedPrice('1299.99, 3 people, food')).toEqual(1591.58);
   });
